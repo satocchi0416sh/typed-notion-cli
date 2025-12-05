@@ -111,7 +111,7 @@ export class CodeFormatter {
       } else {
         // Return original code if formatting fails
         // Note: Using console.warn for development debugging
-        // eslint-disable-next-line no-console
+
         console.warn(`Failed to format code snippet ${index + 1}:`, result.reason);
         return codeSnippets[index] || '';
       }

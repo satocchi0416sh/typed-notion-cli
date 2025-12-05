@@ -109,8 +109,12 @@ async function validateSchemas(options: ValidateOptions): Promise<void> {
   const errors = results.filter(r => r.status === 'error').length;
 
   console.log(chalk.green(`✓ Valid: ${valid}`));
-  if (invalid > 0) console.log(chalk.red(`✗ Out of sync: ${invalid}`));
-  if (errors > 0) console.log(chalk.red(`⚠ Errors: ${errors}`));
+  if (invalid > 0) {
+    console.log(chalk.red(`✗ Out of sync: ${invalid}`));
+  }
+  if (errors > 0) {
+    console.log(chalk.red(`⚠ Errors: ${errors}`));
+  }
 
   // Provide resolution suggestions
   if (hasErrors) {
@@ -210,12 +214,16 @@ async function validateSingleSchema(
 function getConfiguredSchemas(
   config: CLIConfig
 ): Array<{ name: string; dataSourceId: string; path?: string }> {
-  if (!config.databases) return [];
+  if (!config.databases) {
+    return [];
+  }
 
   return Object.entries(config.databases)
     .map(([name, dbConfig]: [string, DatabaseConfig]) => {
       const dataSourceId = dbConfig.dataSourceId || dbConfig.databaseId;
-      if (!dataSourceId) return null;
+      if (!dataSourceId) {
+        return null;
+      }
 
       const path = getSchemaPathForDataSource(config, name);
       return {
@@ -230,14 +238,18 @@ function getConfiguredSchemas(
 }
 
 function findDataSourceIdForSchema(config: CLIConfig, schemaName: string): string | undefined {
-  if (!config.databases || !config.databases[schemaName]) return undefined;
+  if (!config.databases || !config.databases[schemaName]) {
+    return undefined;
+  }
 
   const dbConfig: DatabaseConfig = config.databases[schemaName];
   return dbConfig.dataSourceId || dbConfig.databaseId;
 }
 
 function getSchemaPathForDataSource(config: CLIConfig, schemaName: string): string | undefined {
-  if (!config.output) return undefined;
+  if (!config.output) {
+    return undefined;
+  }
 
   // Generate path based on schema name and output directory
   const outputDir = dirname(config.output);

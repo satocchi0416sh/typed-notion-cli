@@ -150,8 +150,12 @@ async function promptForConfiguration(options: InitOptions): Promise<ProjectConf
       name: 'dataSourceId',
       message: 'Enter Data Source ID (format: src_xxx):',
       validate: (value: string) => {
-        if (!value) return 'Data Source ID is required';
-        if (!value.startsWith('src_')) return 'Data Source ID must start with "src_"';
+        if (!value) {
+          return 'Data Source ID is required';
+        }
+        if (!value.startsWith('src_')) {
+          return 'Data Source ID must start with "src_"';
+        }
         return true;
       },
     });
@@ -162,7 +166,9 @@ async function promptForConfiguration(options: InitOptions): Promise<ProjectConf
       name: 'databaseId',
       message: 'Enter Database ID:',
       validate: (value: string) => {
-        if (!value) return 'Database ID is required';
+        if (!value) {
+          return 'Database ID is required';
+        }
         return true;
       },
     });
@@ -227,7 +233,9 @@ async function browseDataSources(token: string): Promise<string | undefined> {
 }
 
 async function validateNotionAccess(config: ProjectConfig): Promise<void> {
-  if (!config.token) return;
+  if (!config.token) {
+    return;
+  }
 
   console.log(chalk.gray('\nValidating Notion access...'));
 

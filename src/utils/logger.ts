@@ -203,15 +203,13 @@ export class Logger {
     }
 
     // Output to console
-    // eslint-disable-next-line no-console
+
     console.log(consoleMessage);
 
     // Error details
     if (error) {
-      // eslint-disable-next-line no-console
       console.log(chalk.gray(`  Error: ${error.message}`));
       if (entry.level === 'debug' && error.stack) {
-        // eslint-disable-next-line no-console
         console.log(chalk.gray(`  Stack: ${error.stack}`));
       }
     }
@@ -233,7 +231,7 @@ export class Logger {
       await appendFile(logFilePath, logLine);
     } catch (error) {
       // Don't throw here to avoid recursive logging
-      // eslint-disable-next-line no-console
+
       console.error('Failed to write log file:', error);
     }
   }

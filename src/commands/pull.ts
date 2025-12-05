@@ -73,7 +73,7 @@ async function handlePullCommand(options: PullOptions): Promise<void> {
   } else if (config.databases && Object.keys(config.databases).length > 0) {
     // Use configured databases
     dataSourcesToProcess = Object.entries(config.databases).map(([name, dbConfig]) => ({
-      id: dbConfig.dataSourceId || dbConfig.databaseId!,
+      id: dbConfig.dataSourceId || dbConfig.databaseId || '',
       name,
     }));
 

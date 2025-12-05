@@ -97,10 +97,8 @@ export class SchemaGenerator {
 
       // Log type safety warnings if any
       if (typeSafetyReport.warnings.length > 0) {
-        // eslint-disable-next-line no-console
         console.warn(`Type safety warnings for ${dataSourceSchema.name}:`);
         for (const warning of typeSafetyReport.warnings) {
-          // eslint-disable-next-line no-console
           console.warn(`  - ${warning}`);
         }
       }
@@ -150,7 +148,7 @@ export class SchemaGenerator {
       } catch (error) {
         // Continue with other schemas but log the error
         // Note: Using console.warn for development debugging
-        // eslint-disable-next-line no-console
+
         console.warn(`Failed to generate schema for ${schema.name}:`, error);
       }
     }

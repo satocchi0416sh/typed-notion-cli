@@ -47,7 +47,9 @@ const NO_COLOR = process.env.NO_COLOR === '1' || !process.stdout.isTTY;
 
 // Style wrapper function that respects NO_COLOR
 function stylize(text: string, ...codes: string[]): string {
-  if (NO_COLOR) return text;
+  if (NO_COLOR) {
+    return text;
+  }
   return codes.join('') + text + style.reset;
 }
 
@@ -64,7 +66,9 @@ const colors = {
 
 // Boot sequence animation
 async function bootSequence(): Promise<void> {
-  if (NO_COLOR) return; // Skip animations if colors disabled
+  if (NO_COLOR) {
+    return;
+  } // Skip animations if colors disabled
 
   const frames = ['▰▱▱▱▱', '▰▰▱▱▱', '▰▰▰▱▱', '▰▰▰▰▱', '▰▰▰▰▰'];
 
@@ -72,7 +76,10 @@ async function bootSequence(): Promise<void> {
   process.stdout.write(colors.dim('Initializing TYPED-NOTION CLI '));
 
   for (let i = 0; i < frames.length; i++) {
-    process.stdout.write(colors.accent(frames[i]!));
+    const frame = frames[i];
+    if (frame) {
+      process.stdout.write(colors.accent(frame));
+    }
     await new Promise(resolve => setTimeout(resolve, 200));
     if (i < frames.length - 1) {
       process.stdout.write('\b'.repeat(5));
@@ -143,13 +150,13 @@ function createExamples(): string {
     colors.highlight('Examples:'),
     ...exampleCommands.map(
       ([cmd, desc]) =>
-        `  ${colors.accent(cmd!)}${' '.repeat(Math.max(2, 30 - cmd!.length))}${colors.dim(desc!)}`
+        `  ${colors.accent(cmd || '')}${' '.repeat(Math.max(2, 30 - (cmd?.length || 0)))}${colors.dim(desc || '')}`
     ),
     '',
     colors.highlight('Environment Variables:'),
     ...envVars.map(
       ([name, desc]) =>
-        `  ${colors.info(name!)}${' '.repeat(Math.max(2, 20 - name!.length))}${colors.dim(desc!)}`
+        `  ${colors.info(name || '')}${' '.repeat(Math.max(2, 20 - (name?.length || 0)))}${colors.dim(desc || '')}`
     ),
     '',
     colors.highlight('Documentation:'),
@@ -165,7 +172,7 @@ const program = new Command();
 program
   .name('typed-notion')
   .description('CLI tool for generating type-safe TypeScript schemas from Notion data sources')
-  .version('0.1.0')
+  .version('1.0.0')
   .usage('[command] [options]')
   .helpOption('-h, --help', 'Display help for command')
   .addHelpText('before', createBanner())
@@ -179,10 +186,8 @@ program.addCommand(createValidateCommand());
 // Global error handler
 program.exitOverride(err => {
   if (err instanceof CLIError) {
-    // eslint-disable-next-line no-console
     console.error(colors.error(`Error: ${err.message}`));
     if (err.suggestion) {
-      // eslint-disable-next-line no-console
       console.error(colors.warning(`Suggestion: ${err.suggestion}`));
     }
     process.exit(err.exitCode);
@@ -200,15 +205,12 @@ async function initializeCLI(): Promise<void> {
     await program.parseAsync(process.argv);
   } catch (error) {
     if (error instanceof CLIError) {
-      // eslint-disable-next-line no-console
       console.error(colors.error(`Error: ${error.message}`));
       if (error.suggestion) {
-        // eslint-disable-next-line no-console
         console.error(colors.warning(`Suggestion: ${error.suggestion}`));
       }
       process.exit(error.exitCode);
     } else {
-      // eslint-disable-next-line no-console
       console.error(colors.error('Unexpected error:'), error);
       process.exit(1);
     }
@@ -217,7 +219,6 @@ async function initializeCLI(): Promise<void> {
 
 // Start the CLI
 initializeCLI().catch(error => {
-  // eslint-disable-next-line no-console
   console.error(colors.error('Failed to initialize CLI:'), error);
   process.exit(1);
 });

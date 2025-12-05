@@ -67,7 +67,13 @@ export async function loadConfig(configPath?: string): Promise<CLIConfig> {
       );
     }
 
-    return validation.data!;
+    if (!validation.data) {
+      throw new ConfigurationError(
+        'Invalid configuration: validation succeeded but no data returned',
+        'Check your typed-notion.config.ts file for syntax errors'
+      );
+    }
+    return validation.data;
   } catch (error) {
     if (error instanceof ConfigurationError) {
       throw error;
@@ -98,7 +104,13 @@ export function loadEnvironment(): EnvironmentConfig {
     );
   }
 
-  return validation.data!;
+  if (!validation.data) {
+    throw new ConfigurationError(
+      'Invalid environment configuration: validation succeeded but no data returned',
+      'Set the NOTION_TOKEN environment variable with your Notion integration token'
+    );
+  }
+  return validation.data;
 }
 
 /**
