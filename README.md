@@ -18,6 +18,30 @@
 
 ## Installation
 
+> **Note**: This package is not yet published to npm. Currently in development phase.
+
+### For Development/Testing:
+
+```bash
+# Clone the repository
+git clone https://github.com/satocchi0416sh/typed-notion-cli.git
+cd typed-notion-cli
+
+# Install dependencies
+npm install
+
+# Build the CLI
+npm run build
+
+# Link for global usage (development)
+npm link
+
+# Now you can use it globally
+typed-notion --help
+```
+
+### Once Published (Coming Soon):
+
 ```bash
 # Global installation (recommended)
 npm install -g typed-notion-cli
@@ -417,8 +441,8 @@ We welcome contributions! This CLI is part of the larger typed-notion ecosystem.
 1. **Development Setup**:
 
    ```bash
-   git clone https://github.com/user/typed-notion.git
-   cd typed-notion/packages/typed-notion-cli
+   git clone https://github.com/satocchi0416sh/typed-notion-cli.git
+   cd typed-notion-cli
    npm install
    npm run dev
    ```
@@ -450,7 +474,7 @@ We welcome contributions! This CLI is part of the larger typed-notion ecosystem.
 
 This CLI integrates with the broader typed-notion ecosystem:
 
-- **[typed-notion-core-ts](../typed-notion-core-ts/)** - Type-safe Notion API library
+- **[typed-notion-core-ts](https://github.com/satocchi0416sh/typed-notion)** - Type-safe Notion API library
 - **Community plugins** - Extensions and integrations
 - **IDE support** - VS Code extensions and language servers
 
