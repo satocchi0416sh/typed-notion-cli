@@ -28,7 +28,11 @@ export async function withRetry<T>(operation: () => Promise<T>, options: RetryOp
 
       // Check if we should retry
       if (!shouldRetry(lastError) || attempt === maxAttempts) {
-        throw lastError;
+        if (attempt === maxAttempts) {
+          throw new Error(`Operation failed after ${maxAttempts} attempts: ${lastError.message}`);
+        } else {
+          throw lastError;
+        }
       }
 
       // Call retry callback if provided
