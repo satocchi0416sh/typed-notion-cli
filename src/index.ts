@@ -76,7 +76,10 @@ async function bootSequence(): Promise<void> {
   process.stdout.write(colors.dim('Initializing TYPED-NOTION CLI '));
 
   for (let i = 0; i < frames.length; i++) {
-    process.stdout.write(colors.accent(frames[i]!));
+    const frame = frames[i];
+    if (frame) {
+      process.stdout.write(colors.accent(frame));
+    }
     await new Promise(resolve => setTimeout(resolve, 200));
     if (i < frames.length - 1) {
       process.stdout.write('\b'.repeat(5));
@@ -147,13 +150,13 @@ function createExamples(): string {
     colors.highlight('Examples:'),
     ...exampleCommands.map(
       ([cmd, desc]) =>
-        `  ${colors.accent(cmd!)}${' '.repeat(Math.max(2, 30 - cmd!.length))}${colors.dim(desc!)}`
+        `  ${colors.accent(cmd || '')}${' '.repeat(Math.max(2, 30 - (cmd?.length || 0)))}${colors.dim(desc || '')}`
     ),
     '',
     colors.highlight('Environment Variables:'),
     ...envVars.map(
       ([name, desc]) =>
-        `  ${colors.info(name!)}${' '.repeat(Math.max(2, 20 - name!.length))}${colors.dim(desc!)}`
+        `  ${colors.info(name || '')}${' '.repeat(Math.max(2, 20 - (name?.length || 0)))}${colors.dim(desc || '')}`
     ),
     '',
     colors.highlight('Documentation:'),
@@ -169,7 +172,7 @@ const program = new Command();
 program
   .name('typed-notion')
   .description('CLI tool for generating type-safe TypeScript schemas from Notion data sources')
-  .version('0.1.0')
+  .version('1.0.0')
   .usage('[command] [options]')
   .helpOption('-h, --help', 'Display help for command')
   .addHelpText('before', createBanner())

@@ -1,6 +1,6 @@
 {
   "name": "typed-notion-cli",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "CLI tool for generating type-safe TypeScript schemas from Notion data sources",
   "keywords": [
     "notion",
@@ -55,12 +55,12 @@
     "prepare": "husky"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "dependencies": {
     "@notionhq/client": "^2.2.15",
     "chalk": "^5.3.0",
-    "commander": "^12.0.0",
+    "commander": "^11.1.0",
     "prettier": "^3.1.1",
     "prompts": "^2.4.2",
     "zod": "^3.22.4"
