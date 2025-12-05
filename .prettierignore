@@ -1,0 +1,35 @@
+# Build outputs
+dist/
+build/
+coverage/
+
+# Dependencies
+node_modules/
+
+# Generated files
+*.d.ts
+
+# Templates and static files
+templates/
+
+# Logs
+*.log
+logs/
+
+# Cache
+.cache/
+.npm/
+.eslintcache
+.prettiercache
+
+# IDE
+.vscode/
+.idea/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Serena and Claude files
+.serena/
+.claude/

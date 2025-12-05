@@ -186,7 +186,6 @@ export function timed(operationName: string) {
         const metrics = performanceMonitor.endOperation(operationId);
 
         if (metrics && metrics.duration) {
-          // eslint-disable-next-line no-console
           console.log(chalk.gray(`${operationName}: ${metrics.duration.toFixed(2)}ms`));
         }
 

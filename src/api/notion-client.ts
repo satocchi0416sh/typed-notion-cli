@@ -168,7 +168,9 @@ export class NotionClientWrapper {
       }
     }
 
-    throw lastError!;
+    throw new Error(
+      `Operation failed after ${this.retryConfig.maxAttempts} attempts: ${lastError?.message || 'Unknown error'}`
+    );
   }
 
   private isRetryableError(error: Error): boolean {

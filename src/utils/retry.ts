@@ -46,7 +46,9 @@ export async function withRetry<T>(operation: () => Promise<T>, options: RetryOp
     }
   }
 
-  throw lastError!;
+  throw new Error(
+    `Operation failed after ${maxAttempts} attempts: ${lastError?.message || 'Unknown error'}`
+  );
 }
 
 /**

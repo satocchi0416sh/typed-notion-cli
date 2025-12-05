@@ -245,7 +245,7 @@ export class TypeMapper {
           };
         default:
           // Log warning for unrecognized formula output types
-          // eslint-disable-next-line no-console
+
           console.warn(
             `Warning: Unrecognized formula expression_type '${formulaConfig.expression_type}' - defaulting to unknown`
           );

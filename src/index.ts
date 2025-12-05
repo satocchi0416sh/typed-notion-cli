@@ -47,7 +47,9 @@ const NO_COLOR = process.env.NO_COLOR === '1' || !process.stdout.isTTY;
 
 // Style wrapper function that respects NO_COLOR
 function stylize(text: string, ...codes: string[]): string {
-  if (NO_COLOR) return text;
+  if (NO_COLOR) {
+    return text;
+  }
   return codes.join('') + text + style.reset;
 }
 
@@ -64,7 +66,9 @@ const colors = {
 
 // Boot sequence animation
 async function bootSequence(): Promise<void> {
-  if (NO_COLOR) return; // Skip animations if colors disabled
+  if (NO_COLOR) {
+    return;
+  } // Skip animations if colors disabled
 
   const frames = ['▰▱▱▱▱', '▰▰▱▱▱', '▰▰▰▱▱', '▰▰▰▰▱', '▰▰▰▰▰'];
 
@@ -179,10 +183,8 @@ program.addCommand(createValidateCommand());
 // Global error handler
 program.exitOverride(err => {
   if (err instanceof CLIError) {
-    // eslint-disable-next-line no-console
     console.error(colors.error(`Error: ${err.message}`));
     if (err.suggestion) {
-      // eslint-disable-next-line no-console
       console.error(colors.warning(`Suggestion: ${err.suggestion}`));
     }
     process.exit(err.exitCode);
@@ -200,15 +202,12 @@ async function initializeCLI(): Promise<void> {
     await program.parseAsync(process.argv);
   } catch (error) {
     if (error instanceof CLIError) {
-      // eslint-disable-next-line no-console
       console.error(colors.error(`Error: ${error.message}`));
       if (error.suggestion) {
-        // eslint-disable-next-line no-console
         console.error(colors.warning(`Suggestion: ${error.suggestion}`));
       }
       process.exit(error.exitCode);
     } else {
-      // eslint-disable-next-line no-console
       console.error(colors.error('Unexpected error:'), error);
       process.exit(1);
     }
@@ -217,7 +216,6 @@ async function initializeCLI(): Promise<void> {
 
 // Start the CLI
 initializeCLI().catch(error => {
-  // eslint-disable-next-line no-console
   console.error(colors.error('Failed to initialize CLI:'), error);
   process.exit(1);
 });

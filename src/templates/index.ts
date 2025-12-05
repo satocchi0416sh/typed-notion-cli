@@ -153,13 +153,13 @@ export function generateTypeDefinitionTemplate(
 ): string {
   switch (notionType) {
     case 'title':
-      return `string`;
+      return 'string';
 
     case 'rich_text':
-      return `string`;
+      return 'string';
 
     case 'number':
-      return `number | null`;
+      return 'number | null';
 
     case 'select':
       if (configuration && 'options' in configuration && Array.isArray(configuration.options)) {
@@ -171,7 +171,7 @@ export function generateTypeDefinitionTemplate(
           .join(' | ');
         return options || 'string';
       }
-      return `string | null`;
+      return 'string | null';
 
     case 'multi_select':
       if (configuration && 'options' in configuration && Array.isArray(configuration.options)) {
@@ -183,7 +183,7 @@ export function generateTypeDefinitionTemplate(
           .join(' | ');
         return `Array<${options || 'string'}>`;
       }
-      return `string[]`;
+      return 'string[]';
 
     case 'status':
       if (configuration && 'options' in configuration && Array.isArray(configuration.options)) {
@@ -195,54 +195,54 @@ export function generateTypeDefinitionTemplate(
           .join(' | ');
         return options || 'string';
       }
-      return `string | null`;
+      return 'string | null';
 
     case 'date':
-      return `{ start: string; end?: string | null; time_zone?: string | null } | null`;
+      return '{ start: string; end?: string | null; time_zone?: string | null } | null';
 
     case 'people':
-      return `Array<{ id: string; type?: string; name?: string; avatar_url?: string | null }>`;
+      return 'Array<{ id: string; type?: string; name?: string; avatar_url?: string | null }>';
 
     case 'files':
-      return `Array<{ name: string; url: string; type?: string }>`;
+      return 'Array<{ name: string; url: string; type?: string }>';
 
     case 'checkbox':
-      return `boolean`;
+      return 'boolean';
 
     case 'url':
-      return `string | null`;
+      return 'string | null';
 
     case 'email':
-      return `string | null`;
+      return 'string | null';
 
     case 'phone_number':
-      return `string | null`;
+      return 'string | null';
 
     case 'formula':
       // Formulas have ambiguous types, default to unknown
-      return `unknown`;
+      return 'unknown';
 
     case 'relation':
-      return `Array<{ id: string }>`;
+      return 'Array<{ id: string }>';
 
     case 'rollup':
       // Rollups depend on the aggregated property type
-      return `unknown`;
+      return 'unknown';
 
     case 'created_time':
-      return `string`;
+      return 'string';
 
     case 'created_by':
-      return `{ id: string; object: 'user' }`;
+      return '{ id: string; object: \'user\' }';
 
     case 'last_edited_time':
-      return `string`;
+      return 'string';
 
     case 'last_edited_by':
-      return `{ id: string; object: 'user' }`;
+      return '{ id: string; object: \'user\' }';
 
     default:
-      return `unknown`;
+      return 'unknown';
   }
 }
 
